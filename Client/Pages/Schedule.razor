@@ -1,0 +1,42 @@
+﻿@using BlazorApp.Client.Services.ClassesService
+
+@inject IClassesService ClassesService
+@inject NavigationManager NavigationManager
+
+@page "/schedule"
+
+<h3>Schedule</h3>
+
+@foreach (var c  in ClassesService.Classes)
+{
+    <h3>@c.Name</h3>
+}
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        ClassesService.ClassesChanged += StateHasChanged;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            //StatusMessage = "Attempting to get data";
+            //TutorsLoading = true;
+            //forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("/api/WeatherForecast") ?? new WeatherForecast[]{};
+            //await ProductService.GetProducts(null);
+            await ClassesService.GetClasses();
+
+            // TutorsLoading = false;
+            // StatusMessage = TutorService.Response;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            //StatusMessage = "Error retrieving data " + ex.Message;
+        }
+    }
+
+}

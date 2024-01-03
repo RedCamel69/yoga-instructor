@@ -1,10 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using BlazorApp.Shared;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
+using Shared;
 
 namespace Api
 {
@@ -21,11 +22,11 @@ namespace Api
         public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
         {
 
-            var classes = new[] { new { Name = "Strong Yoga", Date = "12th Jan" }, new { Name = "Relaxing Yoga", Date = "14th jan" } }.ToList();
+            var classes = new List<Class>() { new Class() { Name = "Strong Yoga", Date = "12th Jan" }, new Class() { Name = "Relaxing Yoga", Date = "14th jan" } }.ToList();
 
 
             var response = req.CreateResponse(HttpStatusCode.OK);
-            response.WriteAsJsonAsync(classes);
+            response.WriteAsJsonAsync(new ServiceResponse<object>() { Data= classes, Message= "Success", Success=true});
 
             return response;
         }
