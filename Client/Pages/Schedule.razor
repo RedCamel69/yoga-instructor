@@ -2,8 +2,43 @@
 
 @inject IClassesService ClassesService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JS
 
 @page "/schedule"
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex justify-content-center align-items-center">
+
+    <nav id="navbar" class="navbar @NavMenuCssClass">
+        <ul>
+            <li><a class="nav-link scrollto @HomeMenuCssClassActive" @onclick="HandleHomeClick" href="/">Home</a></li>
+            <li><a class="nav-link scrollto @AboutMenuCssClassActive" @onclick="ScrollToAboutAndCloseNamMenu">About</a></li>
+            <li><a class="nav-link scrollto @ClassesMenuCssClassActive" @onclick="ScrollToClassesAndCloseNamMenu">Classes</a></li>
+            <!-- <li><a class="nav-link scrollto" href="#services">Services</a></li>
+            <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
+            <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+              <ul>
+                <li><a href="#">Drop Down 1</a></li>
+                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                  <ul>
+                    <li><a href="#">Deep Drop Down 1</a></li>
+                    <li><a href="#">Deep Drop Down 2</a></li>
+                    <li><a href="#">Deep Drop Down 3</a></li>
+                    <li><a href="#">Deep Drop Down 4</a></li>
+                    <li><a href="#">Deep Drop Down 5</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Drop Down 2</a></li>
+                <li><a href="#">Drop Down 3</a></li>
+                <li><a href="#">Drop Down 4</a></li>
+              </ul>
+            </li> -->
+            <li><a class="nav-link scrollto @ContactMenuCssClassActive" @onclick="ScrollToContactAndCloseNamMenu">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle" @onclick="ToggleNavMenu"></i>
+    </nav><!-- .navbar -->
+
+</header><!-- End Header -->
 
 <h3>Schedule</h3>
 
@@ -14,6 +49,28 @@
 
 @code {
 
+    private IJSObjectReference? _jsModule;
+
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? null : "navbar-mobile";
+
+    private string @CloseMenuCssClass => collapseNavMenu ? "d-none" : "d-flex";
+
+
+
+    private bool homeMenuActive = true;
+    private bool aboutMenuActive = false;
+    private bool classesMenuActive = false;
+    private bool contactMenuActive = false;
+    private string? HomeMenuCssClassActive => homeMenuActive ? "active" : null;
+    private string? AboutMenuCssClassActive => aboutMenuActive ? "active" : null;
+    private string? ClassesMenuCssClassActive => classesMenuActive ? "active" : null;
+    private string? ContactMenuCssClassActive => contactMenuActive ? "active" : null;
+
+    private bool backToTopActive = false;
+    private string? BackToTopMenuCssClassActive => backToTopActive ? "active" : null;
+
     protected override void OnInitialized()
     {
         ClassesService.ClassesChanged += StateHasChanged;
@@ -21,6 +78,21 @@
 
     protected override async Task OnInitializedAsync()
     {
+        try
+        {
+            _jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "../assets/js/main.js");
+        }
+
+        catch(Exception exFirst)
+        {
+            var first = exFirst.Message;
+        }
+
+        if (_jsModule != null)
+        {
+            AttachScrollListener();
+        }
+
         try
         {
             //StatusMessage = "Attempting to get data";
@@ -37,6 +109,72 @@
             Console.WriteLine(ex.ToString());
             //StatusMessage = "Error retrieving data " + ex.Message;
         }
+
+
     }
 
+    async Task AttachScrollListener()
+    {
+        //selfReference = DotNetObjectReference.Create(this);
+        var minInterval = 500; // Only notify every 500 ms
+        await _jsModule.InvokeVoidAsync("onPageScroll", minInterval);
+    }
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void CloseNavMenu()
+    {
+        if (collapseNavMenu == false)
+            collapseNavMenu = true;
+    }
+
+    private void ScrollToAboutAndCloseNamMenu()
+    {
+        _jsModule.InvokeVoidAsync("scrollToAbout");
+
+        homeMenuActive = false;
+        classesMenuActive = false;
+        contactMenuActive = false;
+        aboutMenuActive = true;
+
+        CloseNavMenu();
+    }
+
+    private void ScrollToClassesAndCloseNamMenu()
+    {
+        _jsModule.InvokeVoidAsync("scrollToClasses");
+
+        homeMenuActive = false;
+        contactMenuActive = false;
+        classesMenuActive = true;
+        aboutMenuActive = false;
+
+        CloseNavMenu();
+    }
+
+    private void ScrollToContactAndCloseNamMenu()
+    {
+        _jsModule.InvokeVoidAsync("scrollToContact");
+
+        homeMenuActive = false;
+        aboutMenuActive = false;
+        contactMenuActive = true;
+        classesMenuActive = false;
+
+        CloseNavMenu();
+    }
+
+    private void HandleHomeClick()
+    {
+
+        homeMenuActive = true;
+        aboutMenuActive = false;
+        contactMenuActive = false;
+        classesMenuActive = false;
+
+        CloseNavMenu();
+    }
 }
