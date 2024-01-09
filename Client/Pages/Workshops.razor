@@ -1,0 +1,213 @@
+﻿@page "/workshops"
+
+@inject IJSRuntime JS
+
+<PageTitle>Workshops</PageTitle>
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex justify-content-center align-items-center header-transparent header-scrolled">
+
+    <nav id="navbar" class="navbar @NavMenuCssClass">
+        <ul>
+            <li><a class="nav-link scrollto " href="/">Home</a></li>
+            <li><a class="nav-link scrollto " href="/#about">About</a></li>
+            <li><a class="nav-link scrollto " href="/#classes">Classes</a></li>
+            <li><a class="nav-link scrollto " href="/#contact">Contact</a></li>
+            <li><a class="nav-link scrollto " href="/testimonials">Testimonials</a></li>
+            <li><a class="nav-link scrollto active" href="">Workshops</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle" @onclick="ToggleNavMenu"></i>
+    </nav><!-- .navbar -->
+
+</header><!-- End Header -->
+
+<!-- ======= Workshops Section ======= -->
+<section id="workshops" class="" style="margin-top: 1em;margin-bottom: 1em;">
+    <div class="container">
+
+        <div class="section-title">
+            <span>Workshops and Events</span>
+            <h2>Workshops and Events</h2>
+            <p></p>
+        </div>
+
+        <div class="row" style="margin-top: 1em;margin-bottom: 1em;">
+            <div class="col-lg-12">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="info-box" style="color: #444444;text-align: center;box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);padding: 20px 0 30px 0;">
+                            <h3>Saturday morning workshops</h3>
+                            <p>
+                                ‘Workshops’ allow students and teachers to look more deeply at a specific yoga theme
+                                or pose. The narrower focus means there is more time for explanation, Q&A, demos
+                                and the opportunity to practice/experiment. You can then take the ideas/learnings
+                                back into a regular class or your home practice.
+                            </p>
+                            <p>
+                                <ul style="list-style:none">
+                                    <li>Sat 13 Jan, 9:00-9:50am, Sun salutations</li>
+                                    <li>Sat 27 Jan, 9:00-9:50am, Standing balances</li>
+                                </ul>
+                            </p>
+
+                            <p>
+                                £10 per workshop, which includes tea, coffee or a green smoothie.
+                                
+                            </p>
+
+                            <p>
+                                Please contact me if you have suggestions/requests for dates/times/themes in future.
+                            </p>
+
+                            <p>
+                                Watch this space or contact me to join my <strong>Pythouse Yoga</strong> WhatsApp group for
+                                details of future events and workshops.
+                            </p>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+</section>
+<!-- End Workshops Section -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+    <div class="container">
+        <h3>Lorraine Connell</h3>
+        <p>Yoga for flexibility and strength for everyday life … for relaxation … and for fun</p>
+        <div class="social-links">
+            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        </div>
+        <div class="copyright">
+            &copy; Copyright <strong><span>Lorraine Connell</span></strong>. All Rights Reserved
+        </div>
+
+    </div>
+</footer><!-- End Footer -->
+
+<a id="back-to-top" href="#" class="back-to-top d-flex align-items-center justify-content-center @BackToTopMenuCssClassActive"><i class="bi bi-arrow-up-short"></i></a>
+
+@code {
+
+    private IJSObjectReference? _jsModule;
+
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? null : "navbar-mobile";
+
+    private string @CloseMenuCssClass => collapseNavMenu ? "d-none" : "d-flex";
+
+
+
+    private bool homeMenuActive = true;
+    private bool aboutMenuActive = false;
+    private bool classesMenuActive = false;
+    private bool contactMenuActive = false;
+    private string? HomeMenuCssClassActive => homeMenuActive ? "active" : null;
+    private string? AboutMenuCssClassActive => aboutMenuActive ? "active" : null;
+    private string? ClassesMenuCssClassActive => classesMenuActive ? "active" : null;
+    private string? ContactMenuCssClassActive => contactMenuActive ? "active" : null;
+
+    private bool backToTopActive = false;
+    private string? BackToTopMenuCssClassActive => backToTopActive ? "active" : null;
+
+    private int counter;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+
+        _jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "../assets/js/main.js");
+
+        if (_jsModule != null)
+        {
+            //AttachScrollListener();
+        }
+
+    }
+
+    async Task AttachScrollListener()
+    {
+        //selfReference = DotNetObjectReference.Create(this);
+        var minInterval = 500; // Only notify every 500 ms
+        await _jsModule.InvokeVoidAsync("onPageScroll", minInterval);
+    }
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void CloseNavMenu()
+    {
+        if (collapseNavMenu == false)
+            collapseNavMenu = true;
+    }
+
+    private void ScrollToAboutAndCloseNamMenu()
+    {
+        _jsModule.InvokeVoidAsync("scrollToAbout");
+
+        homeMenuActive = false;
+        classesMenuActive = false;
+        contactMenuActive = false;
+        aboutMenuActive = true;
+
+        CloseNavMenu();
+    }
+
+    private void ScrollToClassesAndCloseNamMenu()
+    {
+        _jsModule.InvokeVoidAsync("scrollToClasses");
+
+        homeMenuActive = false;
+        contactMenuActive = false;
+        classesMenuActive = true;
+        aboutMenuActive = false;
+
+        CloseNavMenu();
+    }
+
+    private void ScrollToContactAndCloseNamMenu()
+    {
+        _jsModule.InvokeVoidAsync("scrollToContact");
+
+        homeMenuActive = false;
+        aboutMenuActive = false;
+        contactMenuActive = true;
+        classesMenuActive = false;
+
+        CloseNavMenu();
+    }
+
+    private void HandleHomeClick()
+    {
+
+        homeMenuActive = true;
+        aboutMenuActive = false;
+        contactMenuActive = false;
+        classesMenuActive = false;
+
+        CloseNavMenu();
+    }
+
+
+    private void OnScroll()
+    {
+        counter++;
+    }
+
+}

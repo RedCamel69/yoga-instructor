@@ -70,10 +70,11 @@ h6 {
 # Header
 --------------------------------------------------------------*/
 #header {
-  z-index: 997;
-  transition: all 0.5s;
-  height: 80px;
-  background: rgba(25, 28, 31, 0.8);
+    z-index: 997;
+    transition: all 0.5s;
+    /*height: 80px;*/
+    height: 60px;
+    background: rgba(25, 28, 31, 0.8);
 }
 
 #header.header-transparent {
@@ -81,7 +82,7 @@ h6 {
 }
 
 #header.header-scrolled {
-  height: 60px;
+  /*height: 60px;*/
   background: rgba(25, 28, 31, 0.8);
 }
 
