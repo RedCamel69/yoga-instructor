@@ -9,8 +9,9 @@ namespace Api.Services
 {
     public interface IClassService
     {
-        ServiceResponse<List<Class>> GetClasses();
+        Task<ServiceResponse<List<Class>>> GetAsync();
 
-        Task<ServiceResponse<List<Class>>> GetClassesAsync();
+
+        Task<ServiceResponse<Class>> CreateCourseAsync(Class course);
     }
 }

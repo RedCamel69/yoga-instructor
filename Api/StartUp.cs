@@ -1,4 +1,5 @@
-﻿using Api.Services;
+﻿using Api.Data;
+using Api.Services;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,10 @@ namespace Api
         {
             var configuration = BuildConfiguration(builder.GetContext().ApplicationRootPath);
 
+         
+         
+            builder.Services.AddScoped<IClassDatabaseSettings, ClassDatabaseSettings>();
+            
             builder.Services.AddScoped<IClassService, ClassService>();
         }
 

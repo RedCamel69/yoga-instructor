@@ -28,7 +28,7 @@ namespace Api
 
             //var classes = new List<Class>() { new Class() { Name = "Strong Yoga", Date = "12th Jan" }, new Class() { Name = "Relaxing Yoga", Date = "14th jan" } }.ToList();
 
-            var classes = await _classService.GetClassesAsync();
+            var classes = await _classService.GetAsync();
 
             return new OkObjectResult(classes);
         }
