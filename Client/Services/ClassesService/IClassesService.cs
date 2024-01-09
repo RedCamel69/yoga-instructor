@@ -1,4 +1,5 @@
 ﻿using Shared;
+using SharedModels;
 
 namespace BlazorApp.Client.Services.ClassesService
 {
@@ -9,5 +10,7 @@ namespace BlazorApp.Client.Services.ClassesService
         List<Class> Classes { get; set; }
 
         Task GetClasses();
+
+        Task CreateClass(Class newClass);
     }
 }

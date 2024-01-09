@@ -1,0 +1,79 @@
+﻿@page "/adminclasses"
+
+@using BlazorApp.Client.Services.ClassesService
+
+
+@inject HttpClient Http
+@inject IClassesService ClassService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
+
+<h3>Admin_Classes</h3>
+
+
+    <div class="table-responsive">
+
+        <table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    </thead>
+
+        @if (ClassService.Classes == null || ClassService.Classes.Count == 0)
+            {
+                <img src="/assets/img/Loading_2.gif">
+
+            }
+            else
+            {
+                <tbody>
+
+                @foreach (var cl in ClassService.Classes)
+                    {
+                        <tr>
+                            <td>
+                                @CheckNull(cl.Name, "None Set")
+                            </td>
+
+                            <td>@CheckNull(cl.Date, new DateTime(1,1,1).ToShortDateString())</td>
+                            <td>@CheckNull(cl.Location, "None Set")</td>
+                        <td>@CheckNull(cl.Price, 0)</td>
+                        </tr>
+                    }
+                </tbody>
+
+            }
+</table>
+
+
+</div>
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        ClassService.ClassesChanged += StateHasChanged;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await ClassService.GetClasses();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+    }
+
+    private T CheckNull<T>(T value, T defaultValue)
+    {
+        return value == null ? defaultValue : value;
+    }
+}

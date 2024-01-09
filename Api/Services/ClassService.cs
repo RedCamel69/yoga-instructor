@@ -1,6 +1,7 @@
 ﻿using Api.Data;
 using MongoDB.Driver;
 using Shared;
+using SharedModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,17 +24,32 @@ namespace Api.Services
                 settings.ClassCollectionName);
         }
 
-        public Task<ServiceResponse<Class>> CreateCourseAsync(Class course)
+        public async Task<ServiceResponse<Class>> CreateClassAsync(Class newClass)
         {
-            throw new NotImplementedException();
+            var response = new ServiceResponse<Class>();
+
+            try
+            {
+                await _classCollection.InsertOneAsync(newClass);
+                
+                response.Data = newClass;
+                response.Message = "Successfully added new class";
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Data = null;
+                response.Message = $"Failed to add new class. Error {ex.Message}";
+            }
+
+            return response;
         }
 
-        public async Task<ServiceResponse<List<Class>>> GetAsync()
+            public async Task<ServiceResponse<List<Class>>> GetAsync()
         {
 
-            var test = _classCollection.Find(x => x.Id != null).ToList<Class>;
-
-
+           
             var response = new ServiceResponse<List<Class>>();
 
             try

@@ -1,0 +1,101 @@
+﻿@page "/adminclass"
+@page "/adminclass/{id:string}"
+
+@using BlazorApp.Client.Services.ClassesService
+
+
+@inject HttpClient Http
+@inject IClassesService ClassService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
+
+<h3>AdminClass</h3>
+
+@if (Id is null)
+{
+    <PageTitle>Create a new Course</PageTitle>
+    <h3>Create a new Class</h3>
+}
+else
+{
+   @*  <PageTitle>Edit @course.Name </PageTitle>
+    <h3>Edit @course.Name  </h3> *@
+}
+
+<EditForm Model="cl" OnValidSubmit="HandleSubmit" OnInvalidSubmit="HandleInvalidSubmit" Context="CurrentEditContext">
+
+    <h3>@FormSubmitMessage</h3> 
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <InputText id="Name" @bind-Value="cl.Name" class="form-control" />
+        <ValidationMessage For="@(() => cl.Name)" />
+    </div>
+    <div>
+        <label for="Location">Location</label>
+        <InputDate id="Location" @bind-Value="cl.Location" class="form-control" />
+        <ValidationMessage For="@(() => cl.Location)" />
+    </div>
+    <div>
+        <label for="Date">Date</label>
+        <InputDate id="Date" @bind-Value="cl.Date" class="form-control" />
+        <ValidationMessage For="@(() => cl.Date)" />
+    </div>
+    <div>
+        <label for="Price">Price</label>
+        <InputNumber id="Price" @bind-Value="cl.Price" class="form-control" />
+        <ValidationMessage For="@(() => cl.Price)" />
+    </div>
+  b  
+
+    <button type="submit" class="btn btn-primary">@_btnText</button>
+
+  
+
+</EditForm>
+
+
+@code {
+
+    [Parameter]
+    public int? Id { get; set; }
+
+    private SharedModels.Class cl = new SharedModels.Class();
+    private string _btnText = string.Empty;
+    private bool InvalidSubmit;
+    public string FormSubmitMessage { get; set; } = "Form Data Not Submitted";
+
+    protected override async Task OnInitializedAsync()
+    {
+        _btnText = Id == null ? "Save New Class" : "Update Class";
+        await ClassService.GetClasses();
+    }
+
+    async Task HandleSubmit()
+    {
+        try
+        {
+            InvalidSubmit = false;
+
+            if (Id is null)
+            {
+                await ClassService.CreateClass(cl);
+            }
+            else
+            {
+                //await CourseService.UpdateCourse(course);
+            }
+        }
+        catch (Exception ex)
+        {
+            FormSubmitMessage = "Error Updating / Creating Class";
+        }
+    }
+
+    public void HandleInvalidSubmit()
+    {
+        FormSubmitMessage = "Invalid Submit Not Implemented";
+    }
+}

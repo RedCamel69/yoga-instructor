@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Components;
 using Shared;
+using SharedModels;
 using System.Net.Http.Json;
 using static System.Net.WebRequestMethods;
 
@@ -39,16 +40,22 @@ namespace BlazorApp.Client.Services.ClassesService
                 RequestSuccessful = res.Success;
                 if (!res.Success)
                 {
-                    Response = "Error retrieving Tutors " + (_showServiceRequestResponses ? res.Message : String.Empty);
+                    Response = "Error retrieving Classes " + (_showServiceRequestResponses ? res.Message : String.Empty);
                 }
                 else
                 {
-                    Response = "Tutors successfully retrieved " + (_showServiceRequestResponses ? res.Message : String.Empty);
+                    Response = "Classes successfully retrieved " + (_showServiceRequestResponses ? res.Message : String.Empty);
                 }
 
             }
 
             ClassesChanged.Invoke();
+        }
+
+        public async Task CreateClass(Class newClass)
+        {
+            await _http.PostAsJsonAsync("api/class", newClass);
+            //_navigationManger.NavigateTo("courses");
         }
     }
 }

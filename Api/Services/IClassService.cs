@@ -1,4 +1,5 @@
 ﻿using Shared;
+using SharedModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,6 @@ namespace Api.Services
         Task<ServiceResponse<List<Class>>> GetAsync();
 
 
-        Task<ServiceResponse<Class>> CreateCourseAsync(Class course);
+        Task<ServiceResponse<Class>> CreateClassAsync(Class course);
     }
 }

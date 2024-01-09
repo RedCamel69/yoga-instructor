@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Shared
+namespace SharedModels
 {
     public class Class
     {
@@ -19,5 +19,7 @@ namespace Shared
         public string Date { get; set; } = null!;
         public Class(string id, string name, string location, string date, decimal price)
             => (Id, Name, Location, Date, Price) = (id, name, location, date, price);
+
+        public Class() { }
     }
 }

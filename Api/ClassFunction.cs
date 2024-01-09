@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using Api.Services;
@@ -6,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using SharedModels;
 
 namespace Api
 {
@@ -31,6 +34,35 @@ namespace Api
             var classes = await _classService.GetAsync();
 
             return new OkObjectResult(classes);
+        }
+
+        [FunctionName("CreateClass")]
+        public async Task<IActionResult> CreateClass(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "class")]
+            HttpRequest req,
+            //Tutor tutor,
+            ILogger log)
+        {
+
+
+            try
+            {
+                string result = await req.ReadAsStringAsync();
+                var cl = JsonConvert.DeserializeObject<Class>(result);
+
+                log.LogInformation("C# HTTP POST trigger function processed api/student request.");
+                return new OkObjectResult(await _classService.CreateClassAsync(cl));
+            }
+            catch (Exception ex)
+            {
+                log.LogError($"C# HTTP POST trigger function api/class exception:{ex.Message}");
+                return new OkObjectResult(new ServiceResponse<Class>()
+                {
+                    Data = null,
+                    Message = "Failed to create course",
+                    Success = false
+                });
+            }
         }
 
     }
