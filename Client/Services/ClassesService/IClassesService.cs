@@ -14,5 +14,7 @@ namespace BlazorApp.Client.Services.ClassesService
         Task<Class?> GetClassById(string id);
 
         Task CreateClass(Class newClass);
+
+        Task UpdateClass(Class updatedClass);
     }
 }

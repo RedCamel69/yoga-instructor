@@ -1,4 +1,5 @@
 ﻿using Api.Data;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Shared;
 using SharedModels;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static MongoDB.Driver.WriteConcern;
 
 namespace Api.Services
 {
@@ -89,6 +91,31 @@ namespace Api.Services
 
             return response;
             
+        }
+
+        public async Task<ServiceResponse<Class>> UpdateClassAsync(Class cl)
+        {
+            var response = new ServiceResponse<Class>();
+
+            try
+            {
+                var filter = Builders<Class>.Filter.Eq("Id", cl.Id);
+                var update = Builders<Class>.Update.Set(x => x,cl);
+
+                await _classCollection.ReplaceOneAsync(filter, cl);
+
+                response.Data = cl;
+                response.Message = "Successfully updated class";
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Data = null;
+                response.Message = $"Failed to update class. Error {ex.Message}";
+            }
+
+            return response;
         }
     }
 }

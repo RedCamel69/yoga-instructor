@@ -83,5 +83,35 @@ namespace BlazorApp.Client.Services.ClassesService
 
             return null;
         }
+
+        public async Task UpdateClass(Class updatedClass)
+        {
+            
+            //_navigationManger.NavigateTo("adminclasses");
+
+            var result = await _http.PutAsJsonAsync("api/class", updatedClass);
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+                var serviceRespnse = await result.Content.ReadFromJsonAsync<ServiceResponse<Class>>();
+
+                //todo: Inspect response for errors
+                if (serviceRespnse != null)
+                {
+                    if (serviceRespnse.Data != null && serviceRespnse.Success == true)
+                    {
+                        Response = $"Success updating class. Service indicates the action succeeeded S: {serviceRespnse.Message}";
+                        return;
+                    }
+                    else
+                    {
+                        Response = $"Error updating class. Service indicates the action failed : {serviceRespnse.Message}";
+                    }
+
+                }
+            }
+
+            return;
+        }
     }
+    
 }

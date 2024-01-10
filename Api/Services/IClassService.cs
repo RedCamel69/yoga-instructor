@@ -12,9 +12,10 @@ namespace Api.Services
     {
         Task<ServiceResponse<List<Class>>> GetAsync();
 
-
-        Task<ServiceResponse<Class>> CreateClassAsync(Class course);
+        Task<ServiceResponse<Class>> CreateClassAsync(Class cl);
 
         Task<ServiceResponse<Class>> GetClassAsync(string Id);
+
+        Task<ServiceResponse<Class>> UpdateClassAsync(Class cl);
     }
 }

@@ -17,6 +17,8 @@ namespace SharedModels
         public string Location { get; set; } = null!;
 
         public string Date { get; set; } = null!;
+
+        public bool DisplayOnLandingPage { get; set; } = true;
         public Class(string id, string name, string location, string date, decimal price)
             => (Id, Name, Location, Date, Price) = (id, name, location, date, price);
 

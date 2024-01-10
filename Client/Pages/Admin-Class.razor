@@ -87,7 +87,7 @@ else
                 cl = result;
             }
             else
-                NavigationManager.NavigateTo("/course");
+                NavigationManager.NavigateTo("/adminclass");
         }
         else
         {
@@ -108,7 +108,7 @@ else
             }
             else
             {
-                //await CourseService.UpdateCourse(course);
+                await ClassService.UpdateClass(cl);
             }
         }
         catch (Exception ex)

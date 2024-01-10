@@ -90,5 +90,33 @@ namespace Api
             }
         }
 
+
+        [FunctionName("UpdateClass")]
+        public async Task<IActionResult> UpdateClass(
+           [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "class")] HttpRequest req,
+           ILogger log)
+        {
+
+
+            try
+            {
+                string result = await req.ReadAsStringAsync();
+                var cl = JsonConvert.DeserializeObject<Class>(result);
+
+                log.LogInformation("C# HTTP PUT trigger function processed api/class request.");
+                return new OkObjectResult(await _classService.UpdateClassAsync(cl));
+            }
+            catch (Exception ex)
+            {
+                log.LogError($"C# HTTP PUT trigger function api/course exception:{ex.Message}");
+                return new OkObjectResult(new ServiceResponse<Class>()
+                {
+                    Data = null,
+                    Message = "Failed to uodate class",
+                    Success = false
+                });
+            }
+        }
+
     }
 }
