@@ -36,6 +36,31 @@ namespace Api
             return new OkObjectResult(classes);
         }
 
+        [FunctionName("Class")]
+        public async Task<IActionResult> GetClass(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "class/{classId}")] HttpRequest req,
+            string classId,
+            ILogger log)
+        {
+            try
+            {
+                log.LogInformation($"C# HTTP GET trigger function processed api/class/{classId} request.");
+                return new OkObjectResult(await _classService.GetClassAsync(classId));
+            }
+            catch (Exception ex)
+            {
+                log.LogError($"C# HTTP GET trigger function api/course request exception:{ex.Message}");
+                return new OkObjectResult(new ServiceResponse<Class>()
+                {
+                    Data = null,
+                    Message = "Failed to retrieve course",
+                    Success = false
+                });
+            }
+
+            
+        }
+
         [FunctionName("CreateClass")]
         public async Task<IActionResult> CreateClass(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "class")]

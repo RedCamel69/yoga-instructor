@@ -14,5 +14,7 @@ namespace Api.Services
 
 
         Task<ServiceResponse<Class>> CreateClassAsync(Class course);
+
+        Task<ServiceResponse<Class>> GetClassAsync(string Id);
     }
 }

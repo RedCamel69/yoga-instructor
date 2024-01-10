@@ -1,5 +1,6 @@
 ﻿@page "/adminclasses"
 
+
 @using BlazorApp.Client.Services.ClassesService
 
 
@@ -43,6 +44,12 @@
                             <td>@CheckNull(cl.Date, new DateTime(1,1,1).ToShortDateString())</td>
                             <td>@CheckNull(cl.Location, "None Set")</td>
                         <td>@CheckNull(cl.Price, 0)</td>
+                        <td>
+                            <button class="btn btn-primary"
+                                    @onclick="(() => ShowCourse(cl.Id))">
+                                <i class="oi oi-pencil"></i>
+                            </button>
+                        </td>
                         </tr>
                     }
                 </tbody>
@@ -75,5 +82,10 @@
     private T CheckNull<T>(T value, T defaultValue)
     {
         return value == null ? defaultValue : value;
+    }
+
+    void ShowCourse(string id)
+    {
+        NavigationManager.NavigateTo($"adminclass/{id}");
     }
 }

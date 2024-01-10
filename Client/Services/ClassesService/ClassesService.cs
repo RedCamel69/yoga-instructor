@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Shared;
 using SharedModels;
+using System.Net;
 using System.Net.Http.Json;
 using static System.Net.WebRequestMethods;
 
@@ -56,6 +57,31 @@ namespace BlazorApp.Client.Services.ClassesService
         {
             await _http.PostAsJsonAsync("api/class", newClass);
             //_navigationManger.NavigateTo("courses");
+        }
+
+        public async Task<Class?> GetClassById(string id)
+        {
+            var result = await _http.GetAsync($"api/class/{id}");
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+                var serviceRespnse = await result.Content.ReadFromJsonAsync<ServiceResponse<Class>>();
+
+                //todo: Inspect response for errors
+                if (serviceRespnse != null)
+                {
+                    if (serviceRespnse.Data != null && serviceRespnse.Success == true)
+                    {
+                        return serviceRespnse.Data;
+                    }
+                    else
+                    {
+                        Response = $"Error retrieving student. Service indicates the action failed : {serviceRespnse.Message}";
+                    }
+
+                }
+            }
+
+            return null;
         }
     }
 }

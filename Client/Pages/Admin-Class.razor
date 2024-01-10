@@ -1,5 +1,5 @@
 ﻿@page "/adminclass"
-@page "/adminclass/{id:int}"
+@page "/adminclass/{Id}"
  
 @using BlazorApp.Client.Services.ClassesService
 
@@ -18,8 +18,8 @@
 }
 else
 {
-    @*  <PageTitle>Edit @course.Name </PageTitle>
-    <h3>Edit @course.Name  </h3> *@
+     <PageTitle>Edit @cl.Name </PageTitle>
+    <h3>Edit @cl.Name  </h3>
 }
 
 <EditForm Model="cl" OnValidSubmit="HandleSubmit" OnInvalidSubmit="HandleInvalidSubmit" Context="CurrentEditContext">
@@ -62,17 +62,38 @@ else
 @code {
 
     [Parameter]
-    public int? Id { get; set; }
+    public string? Id { get; set; }
 
     private SharedModels.Class cl = new SharedModels.Class();
     private string _btnText = string.Empty;
     private bool InvalidSubmit;
     public string FormSubmitMessage { get; set; } = "Form Data Not Submitted";
+    private bool _displayDeleteButton { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         _btnText = Id == null ? "Save New Class" : "Update Class";
         //await ClassService.GetClasses();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id is not null)
+        {
+            _displayDeleteButton = true;
+            var result = await ClassService.GetClassById(Id);
+            if (result is not null)
+            {
+                cl = result;
+            }
+            else
+                NavigationManager.NavigateTo("/course");
+        }
+        else
+        {
+        }
+
+
     }
 
     async Task HandleSubmit()

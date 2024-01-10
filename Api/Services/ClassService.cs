@@ -70,6 +70,25 @@ namespace Api.Services
            
         }
 
-       
+        public async Task<ServiceResponse<Class>> GetClassAsync(string Id)
+        {
+            var response = new ServiceResponse<Class>();
+            try
+            {
+                //response.Data = await _classCollection.Find(_ => true).ToListAsync();
+                response.Data = await _classCollection.Find(x => x.Id == Id).FirstOrDefaultAsync();
+                response.Message = "Successfully retrieved class";
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Data = null;
+                response.Message = $"Failed to retrieve class. Error {ex.Message}";
+            }
+
+            return response;
+            
+        }
     }
 }
