@@ -1,7 +1,11 @@
 ﻿@page "/"
 
+@using BlazorApp.Client.Services.ClassesService
+
 @inject IJSRuntime JS
 @inject NavigationManager Navigation;
+@inject IClassesService ClassService
+
 
 <PageTitle>Index</PageTitle>
 
@@ -65,19 +69,61 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="info-box" style="color: #444444;text-align: center;box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);padding: 20px 0 30px 0;">
-                                <h3>January 2024</h3>
-                                <h4>At Pythouse (Tennis) Clubhouse, Hatch</h4>
+
+                            @if (ClassService.Classes == null || ClassService.Classes.Count == 0)
+                            {
+                                <div class="info-box" style="color: #444444;text-align: center;box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);padding: 20px 0 30px 0;">
+                                    <h3>@DateTime.Now.ToString("MMMM yyyy")</h3>
+                                    <h4>At Pythouse (Tennis) Clubhouse, Hatch</h4>
+                                    <ul style="list-style: none;padding-left:0em">
+                                        <li>Monday 5-6pm</li>
+                                        <li>Tuesday 11am-12pm</li>
+                                        <li>Wednesday 6-7pm <strong>(NB - no class on Weds 17 Jan)</strong></li>
+                                        <li>Saturday 10-11am</li>
+                                    </ul>
+
+                                    <h4>At the Nadder Centre, Tisbury</h4>
+                                    <ul style="list-style: none;padding-left:0em">
+                                        <li>Thursday 11am-12pm</li>
+                                    </ul>
+
+                                    <p>
+                                        I also teach one-to-one (drawing on the specialised training I mention in the “About
+                                        Me” section). Although more expensive, a regular or occasional one-to-one lesson
+                                        provides the opportunity to focus on what you most want to practice, and you can
+                                        apply the feedback and tailored cues in subsequent group classes.
+                                    </p>
+
+
+                                </div>
+                            }
+
+                            <div class="info-box" style="color: #444444;text-align: center;box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);padding: 20px 0 30px 0;">
+
+                                <h3>@DateTime.Now.ToString("MMMM yyyy")</h3>
+
+                                @if (ClassService.Classes.Where(x => x.Location.Contains("Pythouse")).Count() > 0)
+                                {
+                                    <h4>At Pythouse (Tennis) Clubhouse, Hatch</h4>
+                                }
+                                
                                 <ul style="list-style: none;padding-left:0em">
-                                    <li>Monday 5-6pm</li>
-                                    <li>Tuesday 11am-12pm</li>
-                                    <li>Wednesday 6-7pm (NB - no class on Weds 17 Jan)</li>
-                                    <li>Saturday 10-11am</li>
+                                    @foreach (var cl in ClassService.Classes.Where(x=>x.Location.Contains("Pythouse")))
+                                    {
+                                        <li>@cl.Name @cl.StartTime.ToShortTimeString() to @cl.EndTime <strong>@cl.SpecialNotes</strong></li>
+                                    }
                                 </ul>
 
-                                <h4>At the Nadder Centre, Tisbury</h4>
+                                @if (ClassService.Classes.Where(x => x.Location.Contains("Nadder")).Count() > 0)
+                                {
+                                    <h4>At the Nadder Centre, Tisbury</h4>
+                                }
+                                
                                 <ul style="list-style: none;padding-left:0em">
-                                    <li>Thursday 11am-12pm</li>
+                                    @foreach (var cl in ClassService.Classes.Where(x => x.Location.Contains("Nadder")))
+                                    {
+                                        <li>@cl.Name @cl.StartTime.ToShortTimeString() to @cl.EndTime @cl.SpecialNotes</li>
+                                    }
                                 </ul>
 
                                 <p>
@@ -87,8 +133,9 @@
                                     apply the feedback and tailored cues in subsequent group classes.
                                 </p>
 
-                               
-                                    </div>
+
+                            </div>
+
                                 </div>
 
                             </div>
@@ -180,17 +227,10 @@
 
         
     </div>
-        </section><!-- End My Classes Section -->
-
-
-
+</section><!-- End My Classes Section -->
 
 
         <!-- ======= About Yoga Section ======= -->
-
-
-
-
         <section id="why-yoga" class="yoga">
             <div class="container">
 
@@ -744,6 +784,12 @@
     private bool scrolledToAbout = false; //todo: must be a better way?!
     private bool scrolledToClasses = false;
 
+
+    protected override void OnInitialized()
+    {
+        ClassService.ClassesChanged += StateHasChanged;
+    }
+
     protected override async Task OnInitializedAsync()
     {
         Navigation.LocationChanged -= OnLocationChanged;
@@ -755,6 +801,15 @@
         if (_jsModule != null)
         {
             AttachScrollListener();
+        }
+
+        try
+        {
+            await ClassService.GetClasses();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
         }
 
     }

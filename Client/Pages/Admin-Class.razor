@@ -37,20 +37,59 @@ else
    
     <div>
         <label for="Location">Location</label>
-        <InputText id="Location" @bind-Value="cl.Location" class="form-control" />
+        @* <InputText id="Location" @bind-Value="cl.Location" class="form-control" /> *@
+        <InputSelect @bind-Value="cl.Location" class="form-control">
+            <option value="">Select Location ...</option>
+            <option value="Pythouse (Tennis) Clubhouse, Hatch">Pythouse (Tennis) Clubhouse, Hatch</option>
+            <option value="Nadder Centre, Tisbury">Nadder Centre, Tisbury</option>
+        </InputSelect>
         <ValidationMessage For="@(() => cl.Location)" />
     </div>
     <div>
         <label for="Date">Date</label>
-        <InputText id="Date" @bind-Value="cl.Date" class="form-control" />
+        <InputDate id="Date" @bind-Value="cl.Date" class="form-control" />
         <ValidationMessage For="@(() => cl.Date)" />
+    </div>
+    <div>
+        <label for="StartTime">Start Time</label>
+        <InputDate Type="InputDateType.Time" id="StartTime" @bind-Value="cl.StartTime" class="form-control" />
+        <ValidationMessage For="@(() => cl.StartTime)" />
+    </div>
+    <div>
+        <label for="EndTime">End Time</label>
+        <InputDate Type="InputDateType.Time" id="EndTime" @bind-Value="cl.EndTime" class="form-control" />
+        <ValidationMessage For="@(() => cl.EndTime)" />
     </div>
     <div>
         <label for="Price">Price</label>
         <InputNumber id="Price" @bind-Value="cl.Price" class="form-control" />
         <ValidationMessage For="@(() => cl.Price)" />
     </div>
+
+    <div>
+        <label for="DisplayOnLandingPage">Display On Landing Page</label>
+        <InputCheckbox id="DisplayOnLandingPage" @bind-Value="cl.DisplayOnLandingPage" class="" />
+        <ValidationMessage For="@(() => cl.DisplayOnLandingPage)" />
+    </div>
+
+    <div>
+        <label for="WeeklyRecurring">Weekly Recurring</label>
+        <InputCheckbox id="WeeklyRecurring" @bind-Value="cl.WeeklyRecurring" class="" />
+        <ValidationMessage For="@(() => cl.WeeklyRecurring)" />
+    </div>
+
+    <div>
+        <label for="Active">Active</label>
+        <InputCheckbox id="Active" @bind-Value="cl.Active" class="" />
+        <ValidationMessage For="@(() => cl.Active)" />
+    </div>
     
+    <div class="form-group">
+        <label for="SpecialNotes">Special Notes</label>
+        <InputText id="SpecialNotes" @bind-Value="cl.SpecialNotes" class="form-control" />
+        <ValidationMessage For="@(() => cl.SpecialNotes)" />
+    </div>
+
 
     <button type="submit" class="btn btn-primary">@_btnText</button>
 
@@ -105,10 +144,12 @@ else
             if (Id is null)
             {
                 await ClassService.CreateClass(cl);
+                NavigationManager.NavigateTo("/adminclasses");
             }
             else
             {
                 await ClassService.UpdateClass(cl);
+                NavigationManager.NavigateTo("/adminclasses");
             }
         }
         catch (Exception ex)

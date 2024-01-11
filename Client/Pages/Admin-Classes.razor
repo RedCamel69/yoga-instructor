@@ -21,6 +21,10 @@
             <th>Date</th>
             <th>Location</th>
             <th>Price</th>
+                <th>Landing page</th>
+                <th>Weekly</th>
+                <th>Special Notes</th>
+                <th>Active</th>
             <th></th>
         </tr>
     </thead>
@@ -41,9 +45,13 @@
                                 @CheckNull(cl.Name, "None Set")
                             </td>
 
-                            <td>@CheckNull(cl.Date, new DateTime(1,1,1).ToShortDateString())</td>
+                            <td>@cl.Date</td>
                             <td>@CheckNull(cl.Location, "None Set")</td>
                         <td>@CheckNull(cl.Price, 0)</td>
+                        <td>@cl.DisplayOnLandingPage</td>
+                        <td>@cl.WeeklyRecurring</td>
+                        <td>@cl.SpecialNotes</td>
+                        <td>@cl.Active</td>
                         <td>
                             <button class="btn btn-primary"
                                     @onclick="(() => ShowCourse(cl.Id))">
