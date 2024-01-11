@@ -70,7 +70,7 @@
                             <div class="row">
                                 <div class="col-md-12">
 
-                            @if (ClassService.Classes == null || ClassService.Classes.Count == 0)
+                            @if (ClassService.FirstPageDisplayClasses == null || ClassService.FirstPageDisplayClasses.Count == 0)
                             {
                                 <div class="info-box" style="color: #444444;text-align: center;box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);padding: 20px 0 30px 0;">
                                     <h3>@DateTime.Now.ToString("MMMM yyyy")</h3>
@@ -97,32 +97,37 @@
 
                                 </div>
                             }
+                            else{
 
                             <div class="info-box" style="color: #444444;text-align: center;box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);padding: 20px 0 30px 0;">
 
                                 <h3>@DateTime.Now.ToString("MMMM yyyy")</h3>
 
-                                @if (ClassService.Classes.Where(x => x.Location.Contains("Pythouse")).Count() > 0)
+                                @if (ClassService.FirstPageDisplayClasses.Where(x => x.Location.Contains("Pythouse")).Count() > 0)
                                 {
                                     <h4>At Pythouse (Tennis) Clubhouse, Hatch</h4>
                                 }
                                 
                                 <ul style="list-style: none;padding-left:0em">
-                                    @foreach (var cl in ClassService.Classes.Where(x=>x.Location.Contains("Pythouse")))
+                                        @foreach (var cl in ClassService.FirstPageDisplayClasses.Where(x => x.Location.Contains("Pythouse")))
                                     {
-                                        <li>@cl.Name @cl.StartTime.ToShortTimeString() to @cl.EndTime <strong>@cl.SpecialNotes</strong></li>
+                                        <li>
+                                            @cl.Name @cl.DisplayStartTime - @cl.DisplayEndTime <strong>@cl.SpecialNotes</strong>
+                                            </li>
                                     }
                                 </ul>
 
-                                @if (ClassService.Classes.Where(x => x.Location.Contains("Nadder")).Count() > 0)
+                                    @if (ClassService.FirstPageDisplayClasses.Where(x => x.Location.Contains("Nadder")).Count() > 0)
                                 {
                                     <h4>At the Nadder Centre, Tisbury</h4>
                                 }
                                 
                                 <ul style="list-style: none;padding-left:0em">
-                                    @foreach (var cl in ClassService.Classes.Where(x => x.Location.Contains("Nadder")))
+                                        @foreach (var cl in ClassService.FirstPageDisplayClasses.Where(x => x.Location.Contains("Nadder")))
                                     {
-                                        <li>@cl.Name @cl.StartTime.ToShortTimeString() to @cl.EndTime @cl.SpecialNotes</li>
+                                        <li>
+                                            @cl.Name @cl.DisplayStartTime - @cl.DisplayEndTime <strong>@cl.SpecialNotes</strong>
+                                        </li>
                                     }
                                 </ul>
 
@@ -135,7 +140,7 @@
 
 
                             </div>
-
+                            }
                                 </div>
 
                             </div>
@@ -787,7 +792,7 @@
 
     protected override void OnInitialized()
     {
-        ClassService.ClassesChanged += StateHasChanged;
+        ClassService.FirstPageDisplayClassesChanged += StateHasChanged;
     }
 
     protected override async Task OnInitializedAsync()

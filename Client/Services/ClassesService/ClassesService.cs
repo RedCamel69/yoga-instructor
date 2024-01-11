@@ -13,8 +13,12 @@ namespace BlazorApp.Client.Services.ClassesService
         private readonly HttpClient _http;
 
         public event Action ClassesChanged;
+        public event Action FirstPageDisplayClassesChanged;
 
         public List<Class> Classes { get; set; } = new List<Class>();
+
+        public List<Class> FirstPageDisplayClasses { get; set; } = new List<Class>();
+
         public string Response { get; set; }
         public bool RequestSuccessful { get; set; }
         private bool _showServiceRequestResponses;
@@ -34,6 +38,7 @@ namespace BlazorApp.Client.Services.ClassesService
             if (res != null && res.Data != null)
             {
                 Classes = res.Data;
+                FirstPageDisplayClasses = res.Data.Where(x => x.DisplayOnLandingPage == true && x.Active == true).ToList();
             }
 
             if (res != null)

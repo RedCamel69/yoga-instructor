@@ -7,7 +7,10 @@ namespace BlazorApp.Client.Services.ClassesService
     {
         event Action ClassesChanged;
 
+        event Action FirstPageDisplayClassesChanged;
         List<Class> Classes { get; set; }
+
+        List<Class> FirstPageDisplayClasses { get; set; }
 
         Task GetClasses();
 
