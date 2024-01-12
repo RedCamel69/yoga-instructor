@@ -9,7 +9,23 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JS
 
-<h3>AdminClass</h3>
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex justify-content-center align-items-center">
+
+    <nav id="navbar" class="navbar @NavMenuCssClass">
+        <ul>
+            <li><a class="nav-link scrollto" href="/admin">Admin Home</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle" @onclick="ToggleNavMenu"></i>
+    </nav><!-- .navbar -->
+
+</header><!-- End Header -->
+
+
+
+<section id="admin-links" class="" style="margin-top:1em">
+    <div class="container">
+        <div class="info-box" style="color: #444444;text-align: left;box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);padding: 20px 10px 30px 10px;">
 
 @if (Id is null)
 {
@@ -24,7 +40,7 @@ else
 
 <EditForm Model="cl" OnValidSubmit="HandleSubmit" OnInvalidSubmit="HandleInvalidSubmit" Context="CurrentEditContext">
 
-    <h3>@FormSubmitMessage</h3>
+    @* <h3>@FormSubmitMessage</h3> *@
     <DataAnnotationsValidator />
     <ValidationSummary />
   
@@ -34,11 +50,11 @@ else
         <ValidationMessage For="@(() => cl.Name)" />
     </div>
 
-   
-    <div>
+
+                <div class="form-group">
         <label for="Location">Location</label>
         @* <InputText id="Location" @bind-Value="cl.Location" class="form-control" /> *@
-        <InputSelect @bind-Value="cl.Location" class="form-control">
+        <InputSelect @bind-Value="cl.Location" class="form-select">
             <option value="">Select Location ...</option>
             <option value="Pythouse (Tennis) Clubhouse, Hatch">Pythouse (Tennis) Clubhouse, Hatch</option>
             <option value="Nadder Centre, Tisbury">Nadder Centre, Tisbury</option>
@@ -46,39 +62,41 @@ else
         <ValidationMessage For="@(() => cl.Location)" />
     </div>
     <div>
+    <div class="col-sm-3">
         <label for="Date">Date</label>
         <InputDate id="Date" @bind-Value="cl.Date" class="form-control" />
         <ValidationMessage For="@(() => cl.Date)" />
+         </div>
     </div>
-    <div>
+                <div class="form-group col-sm-3">
         <label for="StartTime">Start Time</label>
         <InputDate Type="InputDateType.Time" id="StartTime" @bind-Value="cl.StartTime" class="form-control" />
         <ValidationMessage For="@(() => cl.StartTime)" />
     </div>
-    <div>
+                <div class="form-group col-sm-3">
         <label for="EndTime">End Time</label>
         <InputDate Type="InputDateType.Time" id="EndTime" @bind-Value="cl.EndTime" class="form-control" />
         <ValidationMessage For="@(() => cl.EndTime)" />
     </div>
-    <div>
+                <div class="form-group col-sm-3">
         <label for="Price">Price</label>
         <InputNumber id="Price" @bind-Value="cl.Price" class="form-control" />
         <ValidationMessage For="@(() => cl.Price)" />
     </div>
 
-    <div>
+                <div class="form-group col-sm-4">
         <label for="DisplayOnLandingPage">Display On Landing Page</label>
         <InputCheckbox id="DisplayOnLandingPage" @bind-Value="cl.DisplayOnLandingPage" class="" />
         <ValidationMessage For="@(() => cl.DisplayOnLandingPage)" />
     </div>
 
-    <div>
+                <div class="form-group col-sm-3">
         <label for="WeeklyRecurring">Weekly Recurring</label>
         <InputCheckbox id="WeeklyRecurring" @bind-Value="cl.WeeklyRecurring" class="" />
         <ValidationMessage For="@(() => cl.WeeklyRecurring)" />
     </div>
 
-    <div>
+                <div class="form-group col-sm-3">
         <label for="Active">Active</label>
         <InputCheckbox id="Active" @bind-Value="cl.Active" class="" />
         <ValidationMessage For="@(() => cl.Active)" />
@@ -97,8 +115,15 @@ else
 
 </EditForm>
 
+</div>
+</div>
+</section>
 
 @code {
+    private bool collapseNavMenu = true;
+    private string? NavMenuCssClass => collapseNavMenu ? null : "navbar-mobile";
+
+    private string @CloseMenuCssClass => collapseNavMenu ? "d-none" : "d-flex";
 
     [Parameter]
     public string? Id { get; set; }
@@ -161,6 +186,11 @@ else
     public void HandleInvalidSubmit()
     {
         FormSubmitMessage = "Invalid Submit Not Implemented";
+    }
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
     }
 }
 
