@@ -1,3 +1,24 @@
+
+export function scrollToTestimonials() {
+
+    try {
+        document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+export function scrollToWorkshops() {
+
+    try {
+        document.getElementById('workshops').scrollIntoView({ behavior: 'smooth' });
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
 export function scrollToAbout() {
 
     try {

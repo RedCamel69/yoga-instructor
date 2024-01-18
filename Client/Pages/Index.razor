@@ -36,9 +36,9 @@
                 <li><a href="#">Drop Down 4</a></li>
               </ul>
             </li> -->
-            <li><a class="nav-link scrollto @ContactMenuCssClassActive" @onclick="ScrollToContactAndCloseNamMenu">Contact</a></li>
             <li><a class="nav-link scrollto @TestimomialMenuCssClassActive" href="/testimonials">Testimonials</a></li>
             <li><a class="nav-link scrollto " href="/workshops">Workshops</a></li>
+            <li><a class="nav-link scrollto @ContactMenuCssClassActive" @onclick="ScrollToContactAndCloseNamMenu">Contact</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle" @onclick="ToggleNavMenu"></i>
     </nav><!-- .navbar -->
@@ -96,7 +96,11 @@
             <div class="col-sm-4"><img src="/assets/img/pythouse-yoga-2.jpg" class="rounded float-start img-thumbnail" alt="..."></div>
         </div>
         <div class="row">
-            <div class="col-sm-12"><img src="/assets/img/pythouse-yoga-7.jpg" class="rounded float-start img-thumbnail" alt="..."></div>
+            <div class="col-sm-12"><img src="/assets/img/pythouse-yoga-7.jpg" class="rounded float-start img-thumbnail" alt="..." style="width:100%"></div>
+            @* <div class="col-sm-6"><img src="/assets/img/pythouse-yoga-3.jpg" class="rounded float-end img-thumbnail" alt="..."></div> *@
+        </div>
+        <div class="row">
+            <div class="col-sm-12"><img src="/assets/img/pythouse-yoga-8.jpg" class="rounded float-start img-thumbnail" alt="..." style="width:100%"></div>
             @* <div class="col-sm-6"><img src="/assets/img/pythouse-yoga-3.jpg" class="rounded float-end img-thumbnail" alt="..."></div> *@
         </div>
     </div>
@@ -300,7 +304,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6"><img src="/assets/img/nadder1.webp" class="rounded float-start img-thumbnail" alt="..." ></div>
-                    <div class="col-sm-6"><img src="/assets/img/nadder1.webp" class="rounded float-end img-thumbnail" alt="..."></div>
+                    <div class="col-sm-6"><img src="/assets/img/nadder2.jpg" class="rounded float-end img-thumbnail" alt="..."></div>
                 </div>               
             </div>
 
@@ -312,101 +316,66 @@
 </section>
 <!-- End My Classes Section -->
 
-<!-- ======= Contact Me Section ======= -->
-<section id="contact" class="contact">
+<!-- ======= Workshops Section ======= -->
+<section id="workshops" class="" style="margin-top: 1em;margin-bottom: 1em;">
     <div class="container">
 
         <div class="section-title">
-            <span>Contact Me</span>
-            <h2>Contact Me</h2>
-            <p>Please contact me if you have any questions.  I hope to meet you at a class soon.</p>
+            <span>Workshops</span>
+            <h2>Workshops and Events</h2>
+            <p></p>
         </div>
 
-        <div class="row">
-
+        <div class="row" style="margin-top: 1em;margin-bottom: 1em;">
             <div class="col-lg-12">
 
                 <div class="row">
-                    <!-- <div class="col-md-12">
-                      <div class="info-box">
-                        <i class="bx bx-share-alt"></i>
-                        <h3>Social Profiles</h3>
-                        <div class="social-links">
-                          <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                          <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
-                          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-                        </div>
-                      </div>
-                    </div> -->
-                    @*   <div class="col-md-6">
-                    <div class="info-box mt-4">
-                    <i class="bx bx-envelope"></i>
-                    <h3>Email Me</h3>
-                    <p>contact@example.com</p>
-                    </div>
-                    </div> *@
-                    @*  <div class="col-md-6">
-                    <div class="info-box mt-4">
-                    <i class="bx bx-envelope"></i>
-                    <h3>Email Me</h3>
-                    <p>contact@example.com</p>
-                    </div>
-                    </div> *@
                     <div class="col-md-12">
-                        <div class="info-box mt-4">
-                           
-                            <a href="sms:+4407864214756">
-                                <i class="bx bx-phone-call"></i>
-                                <h3>Text</h3>
-                                07720 236 536
-                            </a>
-                            <br />
-                            <br />
-                            I also have a dedicated whatsapp group - please ask for details.
-                         
+                        <div class="info-box" style="color: #444444;text-align: center;box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);padding: 20px 0 30px 0;">
+                            <h3>Saturday morning workshops</h3>
+                            <p>
+                                ‘Workshops’ allow students and teachers to look more deeply at a specific yoga theme
+                                or pose. The narrower focus means there is more time for explanation, Q&A, demos
+                                and the opportunity to practice/experiment. You can then take the ideas/learnings
+                                back into a regular class or your home practice.
+                            </p>
+                            <p>
+                                <ul style="list-style:none">
+                                    <li>Sat 13 Jan, 9:00-9:50am, Sun salutations</li>
+                                    <li>Sat 27 Jan, 9:00-9:50am, Standing balances</li>
+                                </ul>
+                            </p>
+
+                            <p>
+                                £10 per workshop, which includes tea, coffee or a green smoothie.
+
+                            </p>
+
+                            <p>
+                                Please contact me if you have suggestions/requests for dates/times/themes in future.
+                            </p>
+
+                            <p>
+                                Watch this space or contact me to join my <strong>Pythouse Yoga</strong> WhatsApp group for
+                                details of future events and workshops.
+                            </p>
+
                         </div>
                     </div>
+
                 </div>
 
             </div>
-
-            <!-- <div class="col-lg-6">
-              <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-                <div class="row">
-                  <div class="col-md-6 form-group">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                  </div>
-                  <div class="col-md-6 form-group mt-3 mt-md-0">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                  </div>
-                </div>
-                <div class="form-group mt-3">
-                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-                </div>
-                <div class="form-group mt-3">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
-                </div>
-                <div class="my-3">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-                </div>
-                <div class="text-center"><button type="submit">Send Message</button></div>
-              </form>
-            </div> -->
-
         </div>
+
+
 
     </div>
 </section>
-<!-- End Contact Me Section -->
+<!-- End Workshops Section -->
 
-
-
-        <!-- ======= My Portfolio Section ======= -->
-        <!-- <section id="portfolio" class="portfolio">
+<!-- ======= My Portfolio Section ======= -->
+<!-- <section id="portfolio" class="portfolio">
           <div class="container">
 
             <div class="section-title">
@@ -518,9 +487,10 @@
 
           </div>
         </section> -->
-        <!-- End My Portfolio Section -->
-        <!-- ======= Pricing Section ======= -->
-        <!-- <section id="pricing" class="pricing">
+<!-- End My Portfolio Section -->
+
+<!-- ======= Pricing Section ======= -->
+ <!-- <section id="pricing" class="pricing">
           <div class="container">
 
             <div class="section-title">
@@ -604,76 +574,164 @@
 
           </div>
         </section>End Pricing Section -->
+
 <!-- ======= Testimonials Section ======= -->
-
-
-@* <section id="testimonials" class="testimonials">
+<section id="testimonials" class="testimonials">
     <div class="container position-relative">
 
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
+           @*  <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
+            </div> *@
             <div class="carousel-inner">
                 <div class="carousel-item testimonial-item active">
                     <div class="testimonial-item">
-                    <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                    <h3>Saul Goodman</h3>
-                    <h4>Ceo &amp; Founder</h4>
+                    @* <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt=""> *@
+                    <h3>Polly</h3>
+                    <h4>New yogi</h4>
                     <p>
                         <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                        Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                        As a complete novice I wasn’t sure what to expect when I tried a taster session but from day one I’ve loved it.
+                        Lorraine fosters such a warm, inclusive environment and everyone is treated as an individual. I appreciate that she carefully monitors all the students with gentle corrections as necessary.
+                        In 8 weeks I can see an improvement in my strength, balance and flexibility and leave a class with an incredible sense of wellbeing.
+                        This middle aged woman is hooked!
                         <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                     </p>
-                    @* </div> 
+                    </div> 
                 </div>
 
-                <div class="carousel-item testimonial-item active">
-                    @*  <div class="testimonial-item"> 
-                    <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                    <h3>Saul Goodman</h3>
-                    <h4>Ceo &amp; Founder</h4>
+                <div class="carousel-item testimonial-item">
+                    <div class="testimonial-item"> 
+                    @* <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt=""> *@
+                    <h3>Emma</h3>
+                    <h4>New Yogi</h4>
                     <p>
                         <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                        Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                            After many failed attempts with other classes, Lorraine has succeeded in making me fall in love with yoga - and I feel great as a result. She is such an invested, encouraging and fun teacher.
                         <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                     </p>
-                    @* </div> 
+                    </div> 
                 </div>
-                <div class="carousel-item testimonial-item active">
-                    @*  <div class="testimonial-item"> 
+                <div class="carousel-item testimonial-item">
+                    <div class="testimonial-item"> 
                     <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                    <h3>Saul Goodman</h3>
-                    <h4>Ceo &amp; Founder</h4>
+                    <h3>Dave</h3>
+                    <h4>Yogi Guru</h4>
                     <p>
                         <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                        Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                        Example of testimonial with picture
                         <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                     </p>
-                    @* </div>
+                    </div>
                 </div>
             </div>
-         @*    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev" style="bottom:unset">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next" style="bottom:unset">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
     </div>
-</section> *@
+</section>
+<!--  ======= End Testimonials Section ======= -->
 
-<!-- End Testimonials Section -->
+<!-- ======= Contact Me Section ======= -->
+<section id="contact" class="contact">
+    <div class="container">
 
-      
+        <div class="section-title">
+            <span>Contact Me</span>
+            <h2>Contact Me</h2>
+            <p>Please contact me if you have any questions.  I hope to meet you at a class soon.</p>
+        </div>
 
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <div class="row">
+                    <!-- <div class="col-md-12">
+                      <div class="info-box">
+                        <i class="bx bx-share-alt"></i>
+                        <h3>Social Profiles</h3>
+                        <div class="social-links">
+                          <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                          <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
+                          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                      </div>
+                    </div> -->
+                    @*   <div class="col-md-6">
+                    <div class="info-box mt-4">
+                    <i class="bx bx-envelope"></i>
+                    <h3>Email Me</h3>
+                    <p>contact@example.com</p>
+                    </div>
+                    </div> *@
+                    @*  <div class="col-md-6">
+                    <div class="info-box mt-4">
+                    <i class="bx bx-envelope"></i>
+                    <h3>Email Me</h3>
+                    <p>contact@example.com</p>
+                    </div>
+                    </div> *@
+                    <div class="col-md-12">
+                        <div class="info-box mt-4">
+
+                            <a href="sms:+4407864214756">
+                                <i class="bx bx-phone-call"></i>
+                                <h3>Text</h3>
+                                07720 236 536
+                            </a>
+                            <br />
+                            <br />
+                            I also have a dedicated whatsapp group - please ask for details.
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- <div class="col-lg-6">
+              <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                  </div>
+                  <div class="col-md-6 form-group mt-3 mt-md-0">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                </div>
+                <div class="form-group mt-3">
+                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+                </div>
+                <div class="my-3">
+                  <div class="loading">Loading</div>
+                  <div class="error-message"></div>
+                  <div class="sent-message">Your message has been sent. Thank you!</div>
+                </div>
+                <div class="text-center"><button type="submit">Send Message</button></div>
+              </form>
+            </div> -->
+
+        </div>
+
+    </div>
+</section>
+<!-- End Contact Me Section -->
 
 <!-- ======= Footer ======= -->
-
 <footer id="footer">
     <div class="container">
         <h3>Lorraine Connell</h3>
@@ -688,23 +746,22 @@
         <div class="copyright">
             &copy; Copyright <strong><span>Lorraine Connell</span></strong>. All Rights Reserved
         </div>
-
     </div>
-</footer><!-- End Footer -->
+</footer>
+<!-- ======= End Footer ======= -->
 
-<a id="back-to-top" href="#" class="back-to-top d-flex align-items-center justify-content-center @BackToTopMenuCssClassActive"><i class="bi bi-arrow-up-short"></i></a>
+
+<a id="back-to-top" href="#" class="back-to-top d-flex align-items-center justify-content-center @backToTopMenuCssClassActive"><i class="bi bi-arrow-up-short"></i></a>
 
 @code {
 
-    private IJSObjectReference? _jsModule;
+    private IJSObjectReference? jsModule;
 
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? null : "navbar-mobile";
 
     private string @CloseMenuCssClass => collapseNavMenu ? "d-none" : "d-flex";
-
-
 
     private bool homeMenuActive = true;
     private bool aboutMenuActive = false;
@@ -718,10 +775,8 @@
     private string? TestimomialMenuCssClassActive => testimonialMenuActive ? "active" : null;
 
     private bool backToTopActive = false;
-    private string? BackToTopMenuCssClassActive => backToTopActive ? "active" : null;
-
+    private string? backToTopMenuCssClassActive => backToTopActive ? "active" : null;
     private int counter;
-
     private bool scrolledToContact = false; //todo: must be a better way?!
     private bool scrolledToAbout = false; //todo: must be a better way?!
     private bool scrolledToClasses = false;
@@ -738,9 +793,9 @@
         Navigation.LocationChanged += OnLocationChanged;
 
 
-        _jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "../assets/js/main.js");
+        jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "../assets/js/main.js");
 
-        if (_jsModule != null)
+        if (jsModule != null)
         {
             AttachScrollListener();
         }
@@ -766,7 +821,7 @@
             if (!scrolledToContact)
             {
                 // await _jsModule.InvokeVoidAsync("showAlert", "Scroll Now!");
-                await _jsModule.InvokeVoidAsync("scrollToContact");
+                await jsModule.InvokeVoidAsync("scrollToContact");
                 scrolledToContact = true;
             }
         }
@@ -776,7 +831,7 @@
             if (!scrolledToClasses)
             {
                 // await _jsModule.InvokeVoidAsync("showAlert", "Scroll Now!");
-                await _jsModule.InvokeVoidAsync("scrollToClasses");
+                await jsModule.InvokeVoidAsync("scrollToClasses");
                 scrolledToClasses = true;
             }
         }
@@ -786,7 +841,7 @@
             if (!scrolledToAbout)
             {
                 // await _jsModule.InvokeVoidAsync("showAlert", "Scroll Now!");
-                await _jsModule.InvokeVoidAsync("scrollToAbout");
+                await jsModule.InvokeVoidAsync("scrollToAbout");
                 scrolledToAbout = true;
             }
         }
@@ -798,7 +853,7 @@
     {
         //selfReference = DotNetObjectReference.Create(this);
         var minInterval = 500; // Only notify every 500 ms
-        await _jsModule.InvokeVoidAsync("onPageScroll", minInterval);
+        await jsModule.InvokeVoidAsync("onPageScroll", minInterval);
     }
 
     private void ToggleNavMenu()
@@ -814,7 +869,7 @@
 
     private void ScrollToAboutAndCloseNamMenu()
     {
-        _jsModule.InvokeVoidAsync("scrollToAbout");
+        jsModule.InvokeVoidAsync("scrollToAbout");
 
         homeMenuActive = false;
         classesMenuActive = false;
@@ -826,7 +881,7 @@
 
     private void ScrollToClassesAndCloseNamMenu()
     {
-        _jsModule.InvokeVoidAsync("scrollToClasses");
+        jsModule.InvokeVoidAsync("scrollToClasses");
 
         homeMenuActive = false;
         contactMenuActive = false;
@@ -838,7 +893,7 @@
 
     private void ScrollToContactAndCloseNamMenu()
     {
-        _jsModule.InvokeVoidAsync("scrollToContact");
+        jsModule.InvokeVoidAsync("scrollToContact");
 
         homeMenuActive = false;
         aboutMenuActive = false;

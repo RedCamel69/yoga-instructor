@@ -12,7 +12,7 @@
 <!-- ======= Header ======= -->
 <header id="header" class="fixed-top d-flex justify-content-center align-items-center">
 
-    <nav id="navbar" class="navbar @NavMenuCssClass">
+    <nav id="navbar" class="navbar @navMenuCssClass">
         <ul>
             <li><a class="nav-link scrollto" href="/admin">Admin Home</a></li>
         </ul>
@@ -121,9 +121,9 @@ else
 
 @code {
     private bool collapseNavMenu = true;
-    private string? NavMenuCssClass => collapseNavMenu ? null : "navbar-mobile";
+    private string? navMenuCssClass => collapseNavMenu ? null : "navbar-mobile";
 
-    private string @CloseMenuCssClass => collapseNavMenu ? "d-none" : "d-flex";
+    private string closeMenuCssClass => collapseNavMenu ? "d-none" : "d-flex";
 
     [Parameter]
     public string? Id { get; set; }
