@@ -2,7 +2,7 @@
 export function scrollToTestimonials() {
 
     try {
-        document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('testimonials').scrollIntoView({ behavior: 'smooth' });
     }
     catch (err) {
         console.log(err);

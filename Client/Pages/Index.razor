@@ -36,8 +36,10 @@
                 <li><a href="#">Drop Down 4</a></li>
               </ul>
             </li> -->
-            <li><a class="nav-link scrollto @TestimomialMenuCssClassActive" href="/testimonials">Testimonials</a></li>
-            <li><a class="nav-link scrollto " href="/workshops">Workshops</a></li>
+            <li><a class="nav-link scrollto @TestimomialMenuCssClassActive" @onclick="ScrollToTestimonialsAndCloseNamMenu">Testimonials</a></li>
+           @*  <li><a class="nav-link scrollto @TestimomialMenuCssClassActive" href="/testimonials">Testimonials</a></li> *@
+            @* <li><a class="nav-link scrollto " href="/workshops">Workshops</a></li> *@
+            <li><a class="nav-link scrollto @WorkshopMenuCssClassActive" @onclick="ScrollToWorkshopsAndCloseNamMenu">Workshops</a></li>
             <li><a class="nav-link scrollto @ContactMenuCssClassActive" @onclick="ScrollToContactAndCloseNamMenu">Contact</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle" @onclick="ToggleNavMenu"></i>
@@ -748,7 +750,7 @@
 <!-- ======= End Footer ======= -->
 
 
-<a id="back-to-top" href="#" class="back-to-top d-flex align-items-center justify-content-center @backToTopMenuCssClassActive"><i class="bi bi-arrow-up-short"></i></a>
+<a id="back-to-top" href="#" @onclick="HandleBackToTop" class="back-to-top d-flex align-items-center justify-content-center @backToTopMenuCssClassActive"><i class="bi bi-arrow-up-short"></i></a>
 
 @code {
 
@@ -765,11 +767,13 @@
     private bool classesMenuActive = false;
     private bool contactMenuActive = false;
     private bool testimonialMenuActive = false;
+    private bool workshopsMenuActive = false;
     private string? HomeMenuCssClassActive => homeMenuActive ? "active" : null;
     private string? AboutMenuCssClassActive => aboutMenuActive ? "active" : null;
     private string? ClassesMenuCssClassActive => classesMenuActive ? "active" : null;
     private string? ContactMenuCssClassActive => contactMenuActive ? "active" : null;
     private string? TestimomialMenuCssClassActive => testimonialMenuActive ? "active" : null;
+    private string? WorkshopMenuCssClassActive => workshopsMenuActive ? "active" : null;
 
     private bool backToTopActive = false;
     private string? backToTopMenuCssClassActive => backToTopActive ? "active" : null;
@@ -872,6 +876,8 @@
         classesMenuActive = false;
         contactMenuActive = false;
         aboutMenuActive = true;
+        workshopsMenuActive = false;
+        testimonialMenuActive = false;
 
         CloseNavMenu();
     }
@@ -884,6 +890,8 @@
         contactMenuActive = false;
         classesMenuActive = true;
         aboutMenuActive = false;
+        workshopsMenuActive = false;
+        testimonialMenuActive = false;
 
         CloseNavMenu();
     }
@@ -896,20 +904,62 @@
         aboutMenuActive = false;
         contactMenuActive = true;
         classesMenuActive = false;
+        workshopsMenuActive = false;
+        testimonialMenuActive = false;
+        CloseNavMenu();
+    }
 
+    private void ScrollToWorkshopsAndCloseNamMenu()
+    {
+        jsModule.InvokeVoidAsync("scrollToWorkshops");
+
+        workshopsMenuActive = true;
+        homeMenuActive = false;
+        aboutMenuActive = false;
+        contactMenuActive = false;
+        classesMenuActive = false;
+        testimonialMenuActive = false;
+
+        CloseNavMenu();
+    }
+
+    private void ScrollToTestimonialsAndCloseNamMenu()
+    {
+        jsModule.InvokeVoidAsync("scrollToTestimonials");
+
+        workshopsMenuActive = false;
+        homeMenuActive = false;
+        aboutMenuActive = false;
+        contactMenuActive = false;
+        classesMenuActive = false;
+        testimonialMenuActive = true;
         CloseNavMenu();
     }
 
     private void HandleHomeClick()
     {
-
         homeMenuActive = true;
         aboutMenuActive = false;
         contactMenuActive = false;
         classesMenuActive = false;
-        
+        workshopsMenuActive = false;
+        testimonialMenuActive = false;
+
         CloseNavMenu();
     }
+
+    private void HandleBackToTop()
+    {
+        homeMenuActive = true;
+        aboutMenuActive = false;
+        contactMenuActive = false;
+        classesMenuActive = false;
+        workshopsMenuActive = false;
+        testimonialMenuActive = false;
+
+        CloseNavMenu();
+    }
+
 
 
     private void OnScroll()
