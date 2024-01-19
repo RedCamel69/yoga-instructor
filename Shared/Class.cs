@@ -28,12 +28,17 @@ namespace SharedModels
         public TimeOnly StartTime {
             get { return _startTime; }
             set { _startTime = value;
-                if (value.Hour > 12)
+
+                if (value.Hour == 12)
+                {
+                    _displayStartTime = "12 noon";
+                }
+                else if (value.Hour > 12)
                 {
                     var hour = value.Hour - 12;
                     _displayStartTime = hour.ToString() + " PM";
-                }
-                else
+                }               
+                else if(_startTime.Hour < 12) 
                 {
                     _displayStartTime = value.Hour.ToString() + " AM";
                 }
@@ -45,13 +50,17 @@ namespace SharedModels
         {
             get { return _endTime; }   
             set { 
-                _endTime = value; 
-                if (value.Hour > 12)
+                _endTime = value;
+                if (value.Hour == 12)
+                {
+                    _displayEndTime = "12 noon";
+                }
+                else if (value.Hour > 12)
                 {
                     var hour = value.Hour - 12;
                     _displayEndTime = hour.ToString() + " PM";
-                }
-                else
+                }               
+                else if(value.Hour < 12)
                 {
                     _displayEndTime = value.Hour.ToString() + " AM";
                 }
