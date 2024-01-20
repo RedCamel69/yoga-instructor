@@ -33,7 +33,9 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Date</th>
+                            <th>Start Date</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
                             <th>Location</th>
                             <th>Price</th>
                             <th>Landing page</th>
@@ -60,7 +62,9 @@
                                         @CheckNull(cl.Name, "None Set")
                                     </td>
 
-                                    <td>@cl.Date</td>
+                                    <td>@cl.Date.ToShortDateString()</td>
+                                    <td>@cl.StartTime</td>
+                                    <td>@cl.EndTime</td>
                                     <td>@CheckNull(cl.Location, "None Set")</td>
                                     <td>@CheckNull(cl.Price, 0)</td>
                                     <td>@cl.DisplayOnLandingPage</td>
