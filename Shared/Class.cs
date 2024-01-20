@@ -29,7 +29,7 @@ namespace SharedModels
             get { return _startTime; }
             set { _startTime = value;
 
-                if (value.Hour == 12)
+                if (value.Hour == 12 && value.Minute == 0)
                 {
                     _displayStartTime = "12 noon";
                 }
@@ -51,7 +51,7 @@ namespace SharedModels
             get { return _endTime; }   
             set { 
                 _endTime = value;
-                if (value.Hour == 12)
+                if (value.Hour == 12 && value.Minute == 0)
                 {
                     _displayEndTime = "12 noon";
                 }
