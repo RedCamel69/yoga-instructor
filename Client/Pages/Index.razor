@@ -147,7 +147,9 @@
                             <div class="row">
                                 <div class="col-md-12">
 
-                            @if ((Configuration["Pull_Classes_From_Db"] == "false"))
+                          
+
+                            @if (Configuration["Pull_Classes_From_Db"] == "false")
                             @* @if ((Configuration["Pull_Classes_From_Db"] == "false") && ClassService.FirstPageDisplayClasses == null || ClassService.FirstPageDisplayClasses.Count == 0) *@
                             {
                                 @* <div class="info-box">
