@@ -12,6 +12,16 @@ a, .btn-link {
     color: #0077cc;
 }
 
+a {
+  color: #ffb727;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #ffc85a;
+  text-decoration: none;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;

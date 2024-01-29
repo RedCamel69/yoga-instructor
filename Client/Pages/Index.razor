@@ -1,10 +1,12 @@
 ﻿@page "/"
 
+@using BlazorApp.Client.Components
 @using BlazorApp.Client.Services.ClassesService
 
 @inject IJSRuntime JS
-@inject NavigationManager Navigation;
+@inject NavigationManager Navigation
 @inject IClassesService ClassService
+@inject IConfiguration Configuration
 
 
 <PageTitle>Index</PageTitle>
@@ -14,39 +16,31 @@
 
     <nav id="navbar" class="navbar @NavMenuCssClass">
         <ul>
-            <li><a class="nav-link scrollto @HomeMenuCssClassActive" @onclick="HandleHomeClick" href="/">Home</a></li>
-            <li><a class="nav-link scrollto @AboutMenuCssClassActive" @onclick="ScrollToAboutAndCloseNamMenu">About</a></li>
-            <li><a class="nav-link scrollto @ClassesMenuCssClassActive" @onclick="ScrollToClassesAndCloseNamMenu">Classes</a></li>
-            <!-- <li><a class="nav-link scrollto" href="#services">Services</a></li>
-            <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
-            <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-              <ul>
-                <li><a href="#">Drop Down 1</a></li>
-                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                  <ul>
-                    <li><a href="#">Deep Drop Down 1</a></li>
-                    <li><a href="#">Deep Drop Down 2</a></li>
-                    <li><a href="#">Deep Drop Down 3</a></li>
-                    <li><a href="#">Deep Drop Down 4</a></li>
-                    <li><a href="#">Deep Drop Down 5</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Drop Down 2</a></li>
-                <li><a href="#">Drop Down 3</a></li>
-                <li><a href="#">Drop Down 4</a></li>
-              </ul>
-            </li> -->
-          
-           @*  <li><a class="nav-link scrollto @TestimomialMenuCssClassActive" href="/testimonials">Testimonials</a></li> *@
-            @* <li><a class="nav-link scrollto " href="/workshops">Workshops</a></li> *@
-            <li><a class="nav-link scrollto @WorkshopMenuCssClassActive" @onclick="ScrollToWorkshopsAndCloseNamMenu">Workshops</a></li>
-            <li><a class="nav-link scrollto @TestimomialMenuCssClassActive" @onclick="ScrollToTestimonialsAndCloseNamMenu">Testimonials</a></li>
-            <li><a class="nav-link scrollto @ContactMenuCssClassActive" @onclick="ScrollToContactAndCloseNamMenu">Contact</a></li>
+            <li>
+                <NavLink href="/" Match="NavLinkMatch.All">Home</NavLink>
+            </li>
+            <li>
+                <NavLink href="/#about" Match="NavLinkMatch.All">About</NavLink>
+            </li>
+            <li>
+                <NavLink href="/#classes" Match="NavLinkMatch.All">Classes</NavLink>
+            </li>
+            <li>
+                <NavLink href="/#workshops" Match="NavLinkMatch.All">Workshops</NavLink>
+            </li>
+            <li>
+                <NavLink href="/#testimonials" Match="NavLinkMatch.All">Testimonials</NavLink>
+            </li>
+            <li>
+                <NavLink href="/#contact" Match="NavLinkMatch.All">Contact</NavLink>
+            </li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle" @onclick="ToggleNavMenu"></i>
     </nav><!-- .navbar -->
 
 </header><!-- End Header -->
+
+<AnchorNavigation />
 
 <!-- ======= Hero Section ======= -->
 <section id="hero">
@@ -146,16 +140,17 @@
                 <div class="section-title">
                     <span>Classes</span>
                     <h2>Classes</h2>
-            <p>Small group classes (maximum 10 students)</p>
+                    <p>Small group classes (maximum 10 students)</p>
                     <div class="row" style="margin-top: 1em;margin-bottom: 1em;">
                         <div class="col-lg-12">
 
                             <div class="row">
                                 <div class="col-md-12">
 
-                            @if (ClassService.FirstPageDisplayClasses == null || ClassService.FirstPageDisplayClasses.Count == 0)
+                            @if ((Configuration["Pull_Classes_From_Db"] == "false"))
+                            @* @if ((Configuration["Pull_Classes_From_Db"] == "false") && ClassService.FirstPageDisplayClasses == null || ClassService.FirstPageDisplayClasses.Count == 0) *@
                             {
-                                <div class="info-box" style="color: #444444;text-align: center;box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);padding: 20px 0 30px 0;">
+                                <div class="info-box">
                                     <h3>@DateTime.Now.ToString("yyyy")</h3>
                                     <p>Classes at <strong>At Pythouse (Tennis) Clubhouse, Hatch</strong> and the Nadder Centre, Tisbury</p>
                                     <p>Please call for details.</p>
@@ -171,11 +166,12 @@
                             }
                             else{
 
-                            <div class="info-box" style="color: #444444;text-align: center;box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);padding: 20px 0 30px 0;">
+                            <div class="info-box">
 
                                 <h3>@DateTime.Now.ToString("yyyy")</h3>
 
-                                @if (ClassService.FirstPageDisplayClasses.Where(x => x.Location.Contains("Pythouse")).Count() > 0)
+                               
+                                @if ((Configuration["Pull_Classes_From_Db"]=="true") && ClassService.FirstPageDisplayClasses.Where(x => x.Location.Contains("Pythouse")).Count() > 0)
                                 {
                                     <h4>At Pythouse (Tennis) Clubhouse, Hatch</h4>
                                 }
@@ -226,7 +222,7 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="info-box" style="color: #444444;text-align: center;box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);padding: 20px 0 30px 0;">
+                                    <div class="info-box">
                               
 
                                 <ul style="list-style: none;padding-left:0em">
@@ -275,11 +271,11 @@
                     <div class="container">
                         <div class="row">
                             @* <div class="col-sm-6"><img src="/assets/img/pythouse1.webp" class="rounded float-start img-thumbnail" alt="..."></div> *@
-                 <div class="col-sm-6"><img src="/assets/img/pythouse-yoga-1.jpg" class="rounded float-end img-thumbnail" alt="..."></div>
-                    <div class="col-sm-6"><img src="/assets/img/pythouse-yoga-5.jpg" class="rounded float-start img-thumbnail" alt="..."></div>
+                 <div class="col-sm-6"><img src="/assets/img/pythouse-yoga-1.jpg" class="rounded float-end img-thumbnail" alt="pythouse yoga studio" loading="lazy"></div>
+                    <div class="col-sm-6"><img src="/assets/img/pythouse-yoga-5.jpg" class="rounded float-start img-thumbnail" alt="pythouse yoga studio students" loading="lazy"></div>
                 </div>
                         <div class="row">
-                    <div class="col-sm-12"><img src="/assets/img/pythouse-yoga-2.jpg" class="rounded float-start img-thumbnail" alt="..."></div>
+                    <div class="col-sm-12"><img src="/assets/img/pythouse-yoga-2.jpg" class="rounded float-start img-thumbnail" alt="pythouse yoga studio teacher" loading="lazy"></div>
                     @* <div class="col-sm-6"><img src="/assets/img/pythouse-yoga-3.jpg" class="rounded float-end img-thumbnail" alt="..."></div> *@
                         </div>
                     </div>
@@ -318,7 +314,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="info-box" style="color: #444444;text-align: center;box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);padding: 20px 0 30px 0;">
+                        <div class="info-box">
                            @*  <h3>Saturday morning workshops</h3> *@
                             <p>
                                 ‘Workshops’ allow students and teachers to look more deeply at a specific yoga theme
@@ -765,7 +761,7 @@
 <!-- ======= End Footer ======= -->
 
 
-<a id="back-to-top" href="#" @onclick="HandleBackToTop" class="back-to-top d-flex align-items-center justify-content-center @backToTopMenuCssClassActive"><i class="bi bi-arrow-up-short"></i></a>
+<a id="back-to-top" href="#"  class="back-to-top d-flex align-items-center justify-content-center @backToTopMenuCssClassActive"><i class="bi bi-arrow-up-short"></i></a>
 
 @code {
 
@@ -777,25 +773,23 @@
 
     private string @CloseMenuCssClass => collapseNavMenu ? "d-none" : "d-flex";
 
-    private bool homeMenuActive = true;
-    private bool aboutMenuActive = false;
-    private bool classesMenuActive = false;
-    private bool contactMenuActive = false;
-    private bool testimonialMenuActive = false;
-    private bool workshopsMenuActive = false;
-    private string? HomeMenuCssClassActive => homeMenuActive ? "active" : null;
-    private string? AboutMenuCssClassActive => aboutMenuActive ? "active" : null;
-    private string? ClassesMenuCssClassActive => classesMenuActive ? "active" : null;
-    private string? ContactMenuCssClassActive => contactMenuActive ? "active" : null;
-    private string? TestimomialMenuCssClassActive => testimonialMenuActive ? "active" : null;
-    private string? WorkshopMenuCssClassActive => workshopsMenuActive ? "active" : null;
+    // private bool homeMenuActive = true;
+    // private bool aboutMenuActive = false;
+    // private bool classesMenuActive = false;
+    // private bool contactMenuActive = false;
+    // private bool testimonialMenuActive = false;
+    // private bool workshopsMenuActive = false;
+    // private string? HomeMenuCssClassActive => homeMenuActive ? "active" : null;
+    // private string? AboutMenuCssClassActive => aboutMenuActive ? "active" : null;
+    // private string? ClassesMenuCssClassActive => classesMenuActive ? "active" : null;
+    // private string? ContactMenuCssClassActive => contactMenuActive ? "active" : null;
+    // private string? TestimomialMenuCssClassActive => testimonialMenuActive ? "active" : null;
+    // private string? WorkshopMenuCssClassActive => workshopsMenuActive ? "active" : null;
 
     private bool backToTopActive = false;
     private string? backToTopMenuCssClassActive => backToTopActive ? "active" : null;
     private int counter;
-    private bool scrolledToContact = false; //todo: must be a better way?!
-    private bool scrolledToAbout = false; //todo: must be a better way?!
-    private bool scrolledToClasses = false;
+   
 
 
     protected override void OnInitialized()
@@ -803,6 +797,10 @@
         ClassService.FirstPageDisplayClassesChanged += StateHasChanged;
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        CloseNavMenu();
+    }
     protected override async Task OnInitializedAsync()
     {
         Navigation.LocationChanged -= OnLocationChanged;
@@ -830,39 +828,7 @@
     private async void OnLocationChanged(object sender, LocationChangedEventArgs e)
     {
         //await _jsModule.InvokeVoidAsync("showAlert", e.Location);
-
-        if (e.Location.Contains("contact"))
-        {
-
-            if (!scrolledToContact)
-            {
-                // await _jsModule.InvokeVoidAsync("showAlert", "Scroll Now!");
-                await jsModule.InvokeVoidAsync("scrollToContact");
-                scrolledToContact = true;
-            }
-        }
-        if (e.Location.Contains("classes"))
-        {
-
-            if (!scrolledToClasses)
-            {
-                // await _jsModule.InvokeVoidAsync("showAlert", "Scroll Now!");
-                await jsModule.InvokeVoidAsync("scrollToClasses");
-                scrolledToClasses = true;
-            }
-        }
-        if (e.Location.Contains("about"))
-        {
-
-            if (!scrolledToAbout)
-            {
-                // await _jsModule.InvokeVoidAsync("showAlert", "Scroll Now!");
-                await jsModule.InvokeVoidAsync("scrollToAbout");
-                scrolledToAbout = true;
-            }
-        }
-
-
+        StateHasChanged();
     }
 
     async Task AttachScrollListener()
@@ -879,103 +845,9 @@
 
     private void CloseNavMenu()
     {
-        if (collapseNavMenu == false)
+        // if (collapseNavMenu == false)
             collapseNavMenu = true;
     }
-
-    private void ScrollToAboutAndCloseNamMenu()
-    {
-        jsModule.InvokeVoidAsync("scrollToAbout");
-
-        homeMenuActive = false;
-        classesMenuActive = false;
-        contactMenuActive = false;
-        aboutMenuActive = true;
-        workshopsMenuActive = false;
-        testimonialMenuActive = false;
-
-        CloseNavMenu();
-    }
-
-    private void ScrollToClassesAndCloseNamMenu()
-    {
-        jsModule.InvokeVoidAsync("scrollToClasses");
-
-        homeMenuActive = false;
-        contactMenuActive = false;
-        classesMenuActive = true;
-        aboutMenuActive = false;
-        workshopsMenuActive = false;
-        testimonialMenuActive = false;
-
-        CloseNavMenu();
-    }
-
-    private void ScrollToContactAndCloseNamMenu()
-    {
-        jsModule.InvokeVoidAsync("scrollToContact");
-
-        homeMenuActive = false;
-        aboutMenuActive = false;
-        contactMenuActive = true;
-        classesMenuActive = false;
-        workshopsMenuActive = false;
-        testimonialMenuActive = false;
-        CloseNavMenu();
-    }
-
-    private void ScrollToWorkshopsAndCloseNamMenu()
-    {
-        jsModule.InvokeVoidAsync("scrollToWorkshops");
-
-        workshopsMenuActive = true;
-        homeMenuActive = false;
-        aboutMenuActive = false;
-        contactMenuActive = false;
-        classesMenuActive = false;
-        testimonialMenuActive = false;
-
-        CloseNavMenu();
-    }
-
-    private void ScrollToTestimonialsAndCloseNamMenu()
-    {
-        jsModule.InvokeVoidAsync("scrollToTestimonials");
-
-        workshopsMenuActive = false;
-        homeMenuActive = false;
-        aboutMenuActive = false;
-        contactMenuActive = false;
-        classesMenuActive = false;
-        testimonialMenuActive = true;
-        CloseNavMenu();
-    }
-
-    private void HandleHomeClick()
-    {
-        homeMenuActive = true;
-        aboutMenuActive = false;
-        contactMenuActive = false;
-        classesMenuActive = false;
-        workshopsMenuActive = false;
-        testimonialMenuActive = false;
-
-        CloseNavMenu();
-    }
-
-    private void HandleBackToTop()
-    {
-        homeMenuActive = true;
-        aboutMenuActive = false;
-        contactMenuActive = false;
-        classesMenuActive = false;
-        workshopsMenuActive = false;
-        testimonialMenuActive = false;
-
-        CloseNavMenu();
-    }
-
-
 
     private void OnScroll()
     {
