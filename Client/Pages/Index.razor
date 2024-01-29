@@ -150,7 +150,7 @@
                             @if ((Configuration["Pull_Classes_From_Db"] == "false"))
                             @* @if ((Configuration["Pull_Classes_From_Db"] == "false") && ClassService.FirstPageDisplayClasses == null || ClassService.FirstPageDisplayClasses.Count == 0) *@
                             {
-                                <div class="info-box">
+                                @* <div class="info-box">
                                     <h3>@DateTime.Now.ToString("yyyy")</h3>
                                     <p>Classes at <strong>At Pythouse (Tennis) Clubhouse, Hatch</strong> and the Nadder Centre, Tisbury</p>
                                     <p>Please call for details.</p>
@@ -162,7 +162,33 @@
                                         apply the feedback and tailored cues in subsequent group classes.
                                     </p>
 
+                                </div> *@
+
+                                <div class="info-box">
+
+                                    <h3>@DateTime.Now.ToString("yyyy")</h3>
+                                    <h4>At Pythouse (Tennis) Clubhouse, Hatch</h4>
+                                    <ul style="list-style: none;padding-left:0em">
+                                        <li>Monday Yoga 5 PM - 6 PM <strong></strong></li>
+                                        <li>Tuesday Yoga 11 AM - 12 noon <strong></strong></li>
+                                        <li>Wednesday Yoga 6 PM - 7 PM <strong></strong></li>
+                                        <li>Saturday Yoga 10 AM - 11 AM <strong></strong></li>
+                                    </ul>
+
+                                    <h4>At the Nadder Centre, Tisbury</h4>
+                                    <ul style="list-style: none;padding-left:0em">
+                                        <li>Thursday Yoga 11 AM - 12 noon <strong></strong></li>
+                                    </ul>
+
+                                    <p>
+                                        I also teach one-to-one (drawing on the specialised training I mention in the “About
+                                        Me” section). Although more expensive, a regular or occasional one-to-one lesson
+                                        provides the opportunity to focus on what you most want to practice, and you can
+                                        apply the feedback and tailored cues in subsequent group classes.
+                                    </p>
+
                                 </div>
+
                             }
                             else{
 
@@ -789,7 +815,7 @@
     private bool backToTopActive = false;
     private string? backToTopMenuCssClassActive => backToTopActive ? "active" : null;
     private int counter;
-   
+
 
 
     protected override void OnInitialized()
@@ -816,7 +842,10 @@
 
         try
         {
-            await ClassService.GetClasses();
+            @if ((Configuration["Pull_Classes_From_Db"] == "true"))
+            {
+                await ClassService.GetClasses();
+            }
         }
         catch (Exception ex)
         {
