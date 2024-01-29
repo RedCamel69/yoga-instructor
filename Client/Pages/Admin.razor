@@ -4,6 +4,7 @@
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JS
+@inject IConfiguration Configuration
 
 <!-- ======= Header ======= -->
 <header id="header" class="fixed-top d-flex justify-content-center align-items-center">
@@ -28,6 +29,11 @@
     <a href="/adminclass">Add Class</a>
 </div>
 </div>
+</section>
+
+<section id="diagnostics">
+    <h2>Pull_Classes_From_Db : @Configuration["Pull_Classes_From_Db"]</h2>
+    
 </section>
 
 @code {
