@@ -6,7 +6,7 @@
 @inject IJSRuntime JS
 @inject NavigationManager Navigation
 @inject IClassesService ClassService
-@inject IConfiguration Configuration
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 
 
 <PageTitle>Index</PageTitle>
@@ -147,8 +147,8 @@
                             <div class="row">
                                 <div class="col-md-12">
 
-                          
 
+                            
                             @if (Configuration["Pull_Classes_From_Db"] == "false")
                             @* @if ((Configuration["Pull_Classes_From_Db"] == "false") && ClassService.FirstPageDisplayClasses == null || ClassService.FirstPageDisplayClasses.Count == 0) *@
                             {

@@ -4,7 +4,7 @@
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JS
-@inject IConfiguration Configuration
+@inject Microsoft.Extensions.Configuration.IConfiguration config
 
 <!-- ======= Header ======= -->
 <header id="header" class="fixed-top d-flex justify-content-center align-items-center">
@@ -32,7 +32,8 @@
 </section>
 
 <section id="diagnostics">
-    <h2>Pull_Classes_From_Db : @Configuration["Pull_Classes_From_Db"]</h2>
+    <h2>Pull_Classes_From_Db : <span>@config["Pull_Classes_From_Db"]</span></h2>
+    
     
 </section>
 
