@@ -1,0 +1,98 @@
+﻿@inherits LayoutComponentBase
+
+<div class="page" style="">
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex justify-content-center align-items-center">
+
+        <nav id="navbar" class="navbar @NavMenuCssClass">
+            <ul>
+                <li>
+                    <NavLink href="/" Match="NavLinkMatch.All">Home</NavLink>
+                </li>
+                <li>
+                    <NavLink href="/#about" Match="NavLinkMatch.All">About</NavLink>
+                </li>
+                <li>
+                    <NavLink href="/#classes" Match="NavLinkMatch.All">Classes</NavLink>
+                </li>
+                <li>
+                    <NavLink href="/#workshops" Match="NavLinkMatch.All">Workshops</NavLink>
+                </li>
+                <li>
+                    <NavLink href="/#testimonials" Match="NavLinkMatch.All">Testimonials</NavLink>
+                </li>
+                <li>
+                    <NavLink href="/#contact" Match="NavLinkMatch.All">Contact</NavLink>
+                </li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle" @onclick="ToggleNavMenu"></i>
+        </nav><!-- .navbar -->
+
+    </header><!-- End Header -->
+    
+    <!-- ======= Oops Section ======= -->
+    <section id="oops" class="oops" style="margin-top: 1em;margin-bottom: 1em;">
+        <div class="container">
+
+            <div class="section-title">
+                <span>Oops</span>
+                <h2>Oops</h2>
+                <p></p>
+            </div>
+
+            <div class="row" style="margin-top: 1em;margin-bottom: 1em;">
+                <div class="col-lg-12">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="info-box">
+
+                                <h1>OOPS! PAGE NOT FOUND.</h1>
+
+                                <button><a href="/">Go Home</a></button>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </section>
+    <!-- End Oops Section -->
+
+  
+
+    <main>
+
+
+        @Body
+
+    </main>
+</div>
+
+                    @code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? null : "navbar-mobile";
+
+    private string @CloseMenuCssClass => collapseNavMenu ? "d-none" : "d-flex";
+
+
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void CloseNavMenu()
+    {
+        // if (collapseNavMenu == false)
+        collapseNavMenu = true;
+    }
+                    }
